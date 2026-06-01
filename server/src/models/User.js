@@ -61,12 +61,10 @@ const userSchema = new mongoose.Schema(
 
 // === Middleware: Hash password trước khi lưu ===
 userSchema.pre('save', async function (next) {
-  // Chỉ hash khi password thay đổi (không hash lại khi update tên, phone...)
-  if (!this.isModified('password')) return next();
-
+  // Chỉ hash khi password thay đổi
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
 // === Method: So sánh password ===
