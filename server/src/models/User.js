@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Họ tên là bắt buộc'],
       trim: true,
       maxlength: [100, 'Họ tên tối đa 100 ký tự'],
-      match: [/^[a-zA-Z0-9\s]+$/, 'Họ tên chỉ được chứa ký tự chữ và số'],
+      match: [/^[\p{L}\d\s]+$/u, 'Họ tên chỉ được chứa ký tự chữ, số và khoảng trắng'],
     },
     phone: {
       type: String,

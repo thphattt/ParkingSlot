@@ -52,4 +52,17 @@ const protect = async (req, res, next) => {
   }
 };
 
-module.exports = { protect };
+// Middleware: Kiểm tra quyền — chỉ cho phép các role được chỉ định
+const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: `Role "${req.user.role}" không có quyền truy cập`,
+      });
+    }
+    next();
+  };
+};
+
+module.exports = { protect, authorize };
