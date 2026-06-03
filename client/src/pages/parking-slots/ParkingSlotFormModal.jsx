@@ -157,7 +157,7 @@ const ParkingSlotFormModal = ({ isOpen, onClose, slot, onSuccess }) => {
             </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium text-muted-foreground">Khu</label>
-              <input name="zone" value={form.zone} onChange={handleChange} placeholder="A"
+              <input name="zone" value={form.zone} onChange={handleChange} placeholder="A(Ô tô), M(Xe máy)"
                 className="w-full rounded-2xl border border-border bg-muted px-4 py-2.5 text-sm text-foreground uppercase focus:outline-none focus:ring-2 focus:ring-ring/20" />
             </div>
             <div>
