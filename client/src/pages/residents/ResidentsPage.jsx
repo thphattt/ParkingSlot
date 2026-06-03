@@ -4,6 +4,8 @@ import residentService from '../../services/residentService';
 import DataTable from '../../components/ui/DataTable';
 import Pagination from '../../components/ui/Pagination';
 import ResidentFormModal from './ResidentFormModal';
+import toast from 'react-hot-toast';
+
 const ResidentsPage = () => {
   // State
   const [residents, setResidents] = useState([]);
@@ -57,10 +59,11 @@ const ResidentsPage = () => {
     setDeleting(true);
     try {
       await residentService.delete(deleteConfirm._id);
+      toast.success('Đã xóa cư dân')
       setDeleteConfirm(null);
       fetchResidents();
     } catch (error) {
-      alert(error.response?.data?.message || 'Xóa thất bại');
+      toast.error(error.response?.data?.message || 'Xóa thất bại');
     } finally {
       setDeleting(false);
     }
