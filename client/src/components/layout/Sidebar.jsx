@@ -13,7 +13,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     { name: 'Home', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Cư dân', path: '/residents', icon: Users, roles: ['admin'] },
     { name: 'Phương tiện', path: '/vehicles', icon: Car, roles: ['admin', 'security'] },
-    { name: 'Bãi đỗ xe', path: '/parking', icon: ParkingCircle, roles: ['admin', 'security'] },
+    { name: 'Bãi đỗ xe', path: '/parking-slots', icon: ParkingCircle, roles: ['admin', 'security'] },
     { name: 'Vào/Ra', path: '/check-in-out', icon: LogIn, roles: ['admin', 'security'] },
     { name: 'Hợp đồng', path: '/contracts', icon: FileText, roles: ['admin'] },
     { name: 'Thanh toán', path: '/payments', icon: CreditCard, roles: ['admin'] },
