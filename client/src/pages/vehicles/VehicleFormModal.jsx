@@ -3,6 +3,7 @@ import { Save, Loader2 } from "lucide-react";
 import Modal from "../../components/ui/Modal";
 import vehicleService from "../../services/vehicleService";
 import residentService from "../../services/residentService";
+import toast from "react-hot-toast";
 
 const VehicleFormModal = ({ isOpen, onClose, vehicle, onSuccess }) => {
   const isEdit = !!vehicle;
@@ -71,12 +72,15 @@ const VehicleFormModal = ({ isOpen, onClose, vehicle, onSuccess }) => {
     try {
       if (isEdit) {
         await vehicleService.update(vehicle._id, form);
+        toast.success('Cập nhật phương tiện thành công!')
       } else {
         await vehicleService.create(form);
+        toast.success('Thêm phương tiện thành công!')
       }
       onSuccess();
       onClose();
     } catch (err) {
+      toast.error('Thao tác thất bại!')
       setError(err.response?.data?.message || "Có lỗi xảy ra");
     } finally {
       setSaving(false);

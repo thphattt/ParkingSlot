@@ -4,6 +4,7 @@ import vehicleService from "../../services/vehicleService";
 import DataTable from "../../components/ui/DataTable";
 import Pagination from "../../components/ui/Pagination";
 import VehicleFormModal from "./VehicleFormModal";
+import toast from "react-hot-toast";
 
 const VehiclesPage = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -57,10 +58,11 @@ const VehiclesPage = () => {
     setDeleting(true);
     try {
       await vehicleService.delete(deleteConfirm._id);
+      toast.success('Đã xóa phương tiện!')
       setDeleteConfirm(null);
       fetchVehicles();
     } catch (error) {
-      alert(error.response?.data?.message || "Xóa thất bại");
+      toast.error(error.response?.data?.message || "Xóa thất bại");
     } finally {
       setDeleting(false);
     }
