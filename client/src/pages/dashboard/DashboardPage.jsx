@@ -45,7 +45,7 @@ const DashboardPage = () => {
                 <div className="absolute inset-8 rounded-full bg-white/30" />
                 <div className="absolute inset-12 rounded-full bg-white/40" />
                 <div className="absolute inset-16 flex items-center justify-center rounded-full bg-white/50">
-                  <ParkingCircle className="h-6 w-6 text-white" />
+                  <ParkingCircle className="h-6 w-6 text-blue-500" />
                 </div>
               </div>
             </div>
