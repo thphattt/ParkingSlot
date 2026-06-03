@@ -53,8 +53,7 @@ const vehicleSchema = new mongoose.Schema(
   }
 );
 
-// Index
-vehicleSchema.index({ licensePlate: 1 });
+// Index (licensePlate đã có index từ unique:true, không cần khai báo lại)
 vehicleSchema.index({ owner: 1 });
 
 module.exports = mongoose.model('Vehicle', vehicleSchema);
