@@ -7,6 +7,7 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 import MainLayout from './components/layout/MainLayout';
 import ResidentsPage from './pages/residents/ResidentsPage';
+import VehiclesPage from './pages/vehicles/VehiclesPage';
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -32,6 +33,7 @@ function App() {
         >
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/residents" element={<ResidentsPage />} />
+          <Route path="/vehicles" element={<VehiclesPage />} />
           {/* Sẽ thêm các route khác ở đây */}
         </Route>
 
