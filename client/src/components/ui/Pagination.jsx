@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Pagination = ({ page, pages, total, onPageChange }) => {
   if (pages <= 1) return null;
@@ -36,8 +36,8 @@ const Pagination = ({ page, pages, total, onPageChange }) => {
             onClick={() => onPageChange(num)}
             className={`inline-flex h-9 w-9 items-center justify-center rounded-xl text-sm font-medium transition-colors ${
               num === page
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-muted"
             }`}
           >
             {num}
