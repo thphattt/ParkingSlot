@@ -55,7 +55,7 @@ const contractSchema = new mongoose.Schema(
 );
 
 // Tự tạo mã hợp đồng: HD-20260603-001
-contractSchema.pre('save', async function (next) {
+contractSchema.pre('save', async function () {
   if (!this.contractCode) {
     const today = new Date();
     const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
@@ -65,12 +65,8 @@ contractSchema.pre('save', async function (next) {
 
   // Validate: endDate phải sau startDate
   if (this.endDate <= this.startDate) {
-    const err = new Error('Ngày kết thúc phải sau ngày bắt đầu');
-    err.name = 'ValidationError';
-    return next(err);
+    throw new Error('Ngày kết thúc phải sau ngày bắt đầu');
   }
-
-  next();
 });
 
 // Index
