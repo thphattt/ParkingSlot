@@ -58,30 +58,27 @@ const ResidentFormModal = ({ isOpen, onClose, resident, onSuccess }) => {
     setSaving(true);
     setError("");
 
+    // Xóa field rỗng — tránh validation lỗi
+    const cleanData = {};
+    Object.entries(form).forEach(([key, value]) => {
+      if (value !== "" && value !== null && value !== undefined) {
+        cleanData[key] = value;
+      }
+    });
+
     try {
       if (isEdit) {
-        await residentService.update(resident._id, form);
+        await residentService.update(resident._id, cleanData);
+        toast.success("Cập nhật cư dân thành công!");
       } else {
-        await residentService.create(form);
+        await residentService.create(cleanData);
+        toast.success("Thêm cư dân thành công!");
       }
       onSuccess();
-      try {
-        if (isEdit) {
-          await residentService.update(resident._id, form);
-          toast.success("Cập nhật cư dân thành công!");
-        } else {
-          await residentService.create(form);
-          toast.success("Thêm cư dân thành công!");
-        }
-        onSuccess();
-        onClose();
-      } catch (err) {
-        setError(err.response?.data?.message || "Có lỗi xảy ra");
-        toast.error("Thao tác thất bại");
-      }
       onClose();
     } catch (err) {
       setError(err.response?.data?.message || "Có lỗi xảy ra");
+      toast.error("Thao tác thất bại");
     } finally {
       setSaving(false);
     }

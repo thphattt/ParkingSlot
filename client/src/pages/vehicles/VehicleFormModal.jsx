@@ -66,26 +66,35 @@ const VehicleFormModal = ({ isOpen, onClose, vehicle, onSuccess }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    setError("");
-    try {
-      if (isEdit) {
-        await vehicleService.update(vehicle._id, form);
-        toast.success('Cập nhật phương tiện thành công!')
-      } else {
-        await vehicleService.create(form);
-        toast.success('Thêm phương tiện thành công!')
-      }
-      onSuccess();
-      onClose();
-    } catch (err) {
-      toast.error('Thao tác thất bại!')
-      setError(err.response?.data?.message || "Có lỗi xảy ra");
-    } finally {
-      setSaving(false);
+  e.preventDefault();
+  setSaving(true);
+  setError('');
+
+  // Xóa field rỗng
+  const cleanData = {};
+  Object.entries(form).forEach(([key, value]) => {
+    if (value !== '' && value !== null && value !== undefined) {
+      cleanData[key] = value;
     }
-  };
+  });
+
+  try {
+    if (isEdit) {
+      await vehicleService.update(vehicle._id, cleanData);
+      toast.success('Cập nhật phương tiện thành công!');
+    } else {
+      await vehicleService.create(cleanData);
+      toast.success('Thêm phương tiện thành công!');
+    }
+    onSuccess();
+    onClose();
+  } catch (err) {
+    setError(err.response?.data?.message || 'Có lỗi xảy ra');
+    toast.error('Thao tác thất bại');
+  } finally {
+    setSaving(false);
+  }
+};
 
   const footer = (
     <>
