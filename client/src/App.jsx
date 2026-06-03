@@ -6,6 +6,7 @@ import LoginPage from './pages/auth/LoginPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 import MainLayout from './components/layout/MainLayout';
+import ResidentsPage from './pages/residents/ResidentsPage';
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -30,6 +31,7 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/residents" element={<ResidentsPage />} />
           {/* Sẽ thêm các route khác ở đây */}
         </Route>
 
