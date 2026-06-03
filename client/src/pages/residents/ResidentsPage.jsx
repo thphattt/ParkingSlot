@@ -215,8 +215,9 @@ const ResidentsPage = () => {
       />
       {/* Delete Confirm Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="mx-4 w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
+          <div className="relative mx-4 w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-2xl">
             <h3 className="text-lg font-semibold text-foreground mb-2">Xác nhận xóa</h3>
             <p className="text-sm text-muted-foreground mb-6">
               Bạn có chắc muốn xóa cư dân <strong>{deleteConfirm.fullName}</strong>?
