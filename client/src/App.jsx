@@ -9,6 +9,7 @@ import MainLayout from './components/layout/MainLayout';
 import ResidentsPage from './pages/residents/ResidentsPage';
 import VehiclesPage from './pages/vehicles/VehiclesPage';
 import ParkingSlotsPage from './pages/parking-slots/ParkingSlotsPage';
+import ContractsPage from './pages/contracts/ContractsPage';
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/residents" element={<ResidentsPage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
           <Route path='/parking-slots' element={<ParkingSlotsPage />} />
+          <Route path='/contracts' element={<ContractsPage />} />
           {/* Sẽ thêm các route khác ở đây */}
         </Route>
 
