@@ -7,7 +7,8 @@ const vehicleRoutes = require('./vehicle.routes');
 const parkingSlotRoutes = require('./parkingSlot.routes');
 const contractRoutes = require('./contract.routes');
 const dashboardRoutes = require('./dashboard.routes');
-const parkingLogRoutes = require('./parkingLog.routes')
+const parkingLogRoutes = require('./parkingLog.routes');
+const paymentRoutes = require('./payment.routes');
 
 router.use('/auth', authRoutes);
 router.use('/residents', residentRoutes);
@@ -16,5 +17,6 @@ router.use('/parking-slots', parkingSlotRoutes);
 router.use('/contracts', contractRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/parking-logs', parkingLogRoutes);
+router.use('/payments', paymentRoutes);
 
 module.exports = router;
