@@ -1,19 +1,76 @@
-import { Car, ParkingCircle, FileText, Users, TrendingUp, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Car, ParkingCircle, FileText, Users, TrendingUp, ArrowRight, UserPlus } from 'lucide-react';
 import useAuthStore from '../../stores/authStore';
+import dashboardService from '../../services/dashboardService';
 
 const DashboardPage = () => {
   const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await dashboardService.getStats();
+        setData(res.data.data);
+      } catch (error) {
+        console.error('Lỗi tải dashboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  const overview = data?.overview || {};
+  const slotByStatus = data?.slotByStatus || {};
+  const recentResidents = data?.recentResidents || [];
 
   const stats = [
-    { label: 'Tổng slot', value: '—', icon: ParkingCircle, color: 'text-violet-500', desc: 'Chưa có dữ liệu' },
-    { label: 'Đang sử dụng', value: '—', icon: Car, color: 'text-blue-500', desc: 'Chưa có dữ liệu' },
-    { label: 'Cư dân', value: '—', icon: Users, color: 'text-emerald-500', desc: 'Chưa có dữ liệu' },
-    { label: 'Hợp đồng', value: '—', icon: FileText, color: 'text-orange-500', desc: 'Chưa có dữ liệu' },
+    {
+      label: 'Tổng slot',
+      value: loading ? '...' : overview.totalSlots || 0,
+      icon: ParkingCircle,
+      color: 'text-violet-500',
+      desc: loading ? 'Đang tải...' : `${slotByStatus.available || 0} trống · ${slotByStatus.reserved || 0} đã đặt`,
+    },
+    {
+      label: 'Đang sử dụng',
+      value: loading ? '...' : (slotByStatus.occupied || 0) + (slotByStatus.reserved || 0),
+      icon: Car,
+      color: 'text-blue-500',
+      desc: loading ? 'Đang tải...' : `Tỷ lệ lấp đầy ${overview.occupancyRate || 0}%`,
+    },
+    {
+      label: 'Cư dân',
+      value: loading ? '...' : overview.totalResidents || 0,
+      icon: Users,
+      color: 'text-emerald-500',
+      desc: loading ? 'Đang tải...' : 'Đang hoạt động',
+    },
+    {
+      label: 'Hợp đồng',
+      value: loading ? '...' : overview.totalContracts || 0,
+      icon: FileText,
+      color: 'text-orange-500',
+      desc: loading ? 'Đang tải...' : 'Đang hoạt động',
+    },
+  ];
+
+  const formatDate = (date) => new Date(date).toLocaleDateString('vi-VN');
+
+  const quickActions = [
+    { label: 'Thêm cư dân mới', icon: Users, color: 'text-emerald-500', path: '/residents' },
+    { label: 'Đăng ký phương tiện', icon: Car, color: 'text-blue-500', path: '/vehicles' },
+    { label: 'Tạo hợp đồng', icon: FileText, color: 'text-orange-500', path: '/contracts' },
+    { label: 'Quản lý bãi đỗ', icon: ParkingCircle, color: 'text-violet-500', path: '/parking-slots' },
   ];
 
   return (
     <div className="space-y-8">
-      {/* Hero Banner — gradient like Designali */}
+      {/* Hero Banner — giữ nguyên */}
       <section>
         <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 p-8 text-white">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -37,7 +94,6 @@ const DashboardPage = () => {
                 </button>
               </div>
             </div>
-            {/* Decorative circles — matching template DNA */}
             <div className="hidden lg:block">
               <div className="relative h-40 w-40">
                 <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-md" />
@@ -53,7 +109,7 @@ const DashboardPage = () => {
         </div>
       </section>
 
-      {/* Stats Grid */}
+      {/* Stats Grid — giữ nguyên layout, thay data */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold text-foreground">Tổng quan</h2>
@@ -84,28 +140,54 @@ const DashboardPage = () => {
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* Recent Activity */}
+        {/* Recent Residents — thay "Chưa có hoạt động" bằng cư dân mới */}
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold text-foreground">Hoạt động gần đây</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Cư dân mới</h2>
           <div className="rounded-3xl border border-border">
-            <div className="p-8 text-center text-muted-foreground">
-              <Car className="h-12 w-12 mx-auto mb-3 opacity-30" />
-              <p className="font-medium">Chưa có hoạt động</p>
-              <p className="text-sm mt-1">Dữ liệu sẽ hiển thị khi có xe vào/ra</p>
-            </div>
+            {loading ? (
+              <div className="p-6 space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 w-32 animate-pulse rounded-lg bg-muted" />
+                      <div className="h-3 w-24 animate-pulse rounded-lg bg-muted" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : recentResidents.length === 0 ? (
+              <div className="p-8 text-center text-muted-foreground">
+                <UserPlus className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                <p className="font-medium">Chưa có cư dân</p>
+                <p className="text-sm mt-1">Thêm cư dân mới để bắt đầu</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-border">
+                {recentResidents.map((r) => (
+                  <div key={r._id} className="flex items-center justify-between p-4 transition-colors hover:bg-muted/50">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                        {r.fullName.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground">{r.fullName}</p>
+                        <p className="text-xs text-muted-foreground">{r.building}-{r.apartment} · {r.phone}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{formatDate(r.createdAt)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Quick Actions */}
+        {/* Quick Actions — thêm navigate */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold text-foreground">Thao tác nhanh</h2>
           <div className="rounded-3xl border border-border divide-y divide-border">
-            {[
-              { label: 'Thêm cư dân mới', icon: Users, color: 'text-emerald-500' },
-              { label: 'Đăng ký phương tiện', icon: Car, color: 'text-blue-500' },
-              { label: 'Tạo hợp đồng', icon: FileText, color: 'text-orange-500' },
-              { label: 'Ghi nhận xe vào', icon: ParkingCircle, color: 'text-violet-500' },
-            ].map((action) => (
+            {quickActions.map((action) => (
               <div key={action.label} className="flex items-center justify-between p-4 transition-colors hover:bg-muted/50">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-muted">
@@ -113,7 +195,10 @@ const DashboardPage = () => {
                   </div>
                   <span className="font-medium text-foreground">{action.label}</span>
                 </div>
-                <button className="inline-flex items-center rounded-xl border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                <button
+                  onClick={() => navigate(action.path)}
+                  className="inline-flex items-center rounded-xl border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
                   Mở
                 </button>
               </div>
