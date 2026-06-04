@@ -163,7 +163,7 @@ const ParkingLogsPage = () => {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && plate) handleAction('entry');
               }}
-              placeholder="Nhập biển số... VD: 51F12345"
+              placeholder="Nhập biển số... VD: 51F-12345"
               className="w-full rounded-2xl border border-border bg-muted px-4 py-3 text-lg font-mono font-semibold text-foreground uppercase placeholder:text-muted-foreground placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-ring/20"
               autoFocus
             />
