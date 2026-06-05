@@ -12,6 +12,7 @@ import ParkingSlotsPage from './pages/parking-slots/ParkingSlotsPage';
 import ContractsPage from './pages/contracts/ContractsPage';
 import ParkingLogsPage from './pages/parking-logs/ParkingLogsPage';
 import PaymentsPage from './pages/payments/PaymentsPage';
+import ReportsPage from './pages/reports/ReportsPage';
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -42,6 +43,7 @@ function App() {
           <Route path='/contracts' element={<ContractsPage />} />
           <Route path='/parking-logs' element={<ParkingLogsPage />} />
           <Route path='/payments' element={<PaymentsPage />} />
+          <Route path='/reports' element={<ReportsPage />} />
           {/* Sẽ thêm các route khác ở đây */}
         </Route>
 
