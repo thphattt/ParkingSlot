@@ -2,6 +2,7 @@ const Notification = require('../models/Notification');
 const Resident = require('../models/Resident');
 const Payment = require('../models/Payment');
 const sendEmail = require('../utils/sendEmail');
+const { getEmailTemplate } = require('../utils/emailTemplate');
 
 // @desc    Lấy danh sách thông báo
 // @route   GET /api/notifications
@@ -52,7 +53,7 @@ exports.createNotification = async (req, res) => {
         await sendEmail({
           email: resident.email,
           subject: title,
-          message: `<h3>Xin chào ${resident.fullName},</h3><p>${content}</p>`,
+          message: getEmailTemplate(title, content, resident.fullName, type === 'payment'),
         });
       }
     } else {
@@ -63,7 +64,7 @@ exports.createNotification = async (req, res) => {
         sendEmail({
           email: resident.email,
           subject: title,
-          message: `<h3>Xin chào ${resident.fullName},</h3><p>${content}</p>`,
+          message: getEmailTemplate(title, content, resident.fullName, type === 'payment'),
         });
       }
     }
@@ -105,7 +106,7 @@ exports.autoRemindOverdue = async (req, res) => {
         await sendEmail({
           email: payment.resident.email,
           subject: title,
-          message: `<h3 style="color: red;">Xin chào ${payment.resident.fullName},</h3><p>${content}</p>`,
+          message: getEmailTemplate(title, content, payment.resident.fullName, true),
         });
       }
     }
