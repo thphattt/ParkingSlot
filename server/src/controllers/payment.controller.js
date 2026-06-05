@@ -38,13 +38,24 @@ exports.generateMonthly = async (req, res) => {
           continue;
         }
 
+        // Kiểm tra xem hợp đồng có hiệu lực trong tháng được chọn không
+        // Nếu startDate > cuối tháng đó, hoặc endDate < đầu tháng đó -> bỏ qua
+        const targetMonthStart = new Date(year, month - 1, 1);
+        const targetMonthEnd = new Date(year, month, 0, 23, 59, 59);
+
+        if (contract.startDate > targetMonthEnd || contract.endDate < targetMonthStart) {
+          skipped++;
+          continue;
+        }
+
         await Payment.create({
           contract: contract._id,
-          resident: contract.resident,
+          resident: contract.resident._id || contract.resident,
           slot: contract.slot?._id,
-          amount: contract.slot?.monthlyPrice || contract.monthlyPrice || 0,
+          amount: contract.monthlyPrice || contract.slot?.monthlyPrice || 0,
           month: Number(month),
           year: Number(year),
+          dueDate: new Date(year, month - 1, 5, 23, 59, 59),
           status: 'pending',
           createdBy: req.user._id,
         });
@@ -69,6 +80,14 @@ exports.generateMonthly = async (req, res) => {
 exports.getPayments = async (req, res) => {
   try {
     const { page = 1, limit = 20, status, month, year, search } = req.query;
+
+    // Tự động quét và cập nhật các hóa đơn quá hạn (chưa thanh toán & đã qua ngày 5)
+    await Payment.updateMany({
+      status: 'pending',
+      dueDate: { $lt: new Date() }
+    }, {
+      $set: { status: 'overdue' }
+    });
 
     const query = {};
     if (status) query.status = status;

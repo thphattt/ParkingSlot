@@ -210,10 +210,17 @@ const PaymentsPage = () => {
     {
       key: "amount",
       label: "Số tiền",
-      render: (val) => (
-        <span className="font-semibold text-foreground">
-          {formatMoney(val)}
-        </span>
+      render: (val, row) => (
+        <div className="flex flex-col">
+          <span className="font-semibold text-foreground">
+            {formatMoney(val)}
+          </span>
+          {row.dueDate && (
+            <span className="text-[11px] text-muted-foreground">
+              Hạn: {new Date(row.dueDate).toLocaleDateString('vi-VN')}
+            </span>
+          )}
+        </div>
       ),
     },
     {

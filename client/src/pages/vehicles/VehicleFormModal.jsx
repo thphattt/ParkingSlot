@@ -150,7 +150,7 @@ const VehicleFormModal = ({ isOpen, onClose, vehicle, onSuccess }) => {
             value={form.licensePlate}
             onChange={handleChange}
             required
-            placeholder="51F12345"
+            placeholder="51F-12345"
             className="w-full rounded-2xl border border-border bg-muted px-4 py-2.5 text-sm text-foreground uppercase focus:outline-none focus:ring-2 focus:ring-ring/20"
           />
         </div>

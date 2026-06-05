@@ -10,6 +10,7 @@ const dashboardRoutes = require('./dashboard.routes');
 const parkingLogRoutes = require('./parkingLog.routes');
 const paymentRoutes = require('./payment.routes');
 const payosRoutes = require('./payos.routes');
+const reportRoutes = require('./report.routes');
 
 router.use('/auth', authRoutes);
 router.use('/residents', residentRoutes);
@@ -20,5 +21,6 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/parking-logs', parkingLogRoutes);
 router.use('/payments', paymentRoutes);
 router.use('/payos', payosRoutes);
+router.use('/reports', reportRoutes);
 
 module.exports = router;
