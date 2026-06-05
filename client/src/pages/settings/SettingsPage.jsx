@@ -160,36 +160,68 @@ function PasswordTab() {
     }
   };
 
-  const Field = ({ label, field, placeholder }) => (
-    <div>
-      <label className="mb-1.5 block text-sm font-medium text-muted-foreground">{label}</label>
-      <div className="relative">
-        <input
-          required
-          type={show[field] ? 'text' : 'password'}
-          value={form[`${field}Password`] ?? form[field]}
-          onChange={(e) => setForm({ ...form, [`${field}Password`] : e.target.value })}
-          placeholder={placeholder}
-          className={`w-full rounded-2xl border px-4 py-2.5 pr-11 text-sm text-foreground bg-muted focus:outline-none focus:ring-2 focus:ring-ring/20 ${
-            field === 'confirm' && notMatch ? 'border-red-500' : 'border-border'
-          }`}
-        />
-        <button type="button" onClick={() => setShow({ ...show, [field]: !show[field] })} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-          {show[field] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-        </button>
-      </div>
-      {field === 'confirm' && notMatch && <p className="mt-1 text-xs text-red-500">Mật khẩu không khớp</p>}
-    </div>
-  );
-
   return (
     <form onSubmit={handleSubmit} className="rounded-3xl border border-border bg-card p-8 space-y-6">
       <h2 className="font-semibold text-foreground text-lg">Đổi mật khẩu</h2>
       <div className="space-y-4">
-        <Field label="Mật khẩu hiện tại" field="current" placeholder="••••••••" />
-        <Field label="Mật khẩu mới" field="new" placeholder="Tối thiểu 6 ký tự" />
-        <Field label="Xác nhận mật khẩu mới" field="confirm" placeholder="Nhập lại mật khẩu mới" />
+        {/* Mật khẩu hiện tại */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-muted-foreground">Mật khẩu hiện tại</label>
+          <div className="relative">
+            <input
+              required
+              type={show.current ? 'text' : 'password'}
+              value={form.currentPassword}
+              onChange={(e) => setForm({ ...form, currentPassword: e.target.value })}
+              placeholder="••••••••"
+              className="w-full rounded-2xl border border-border px-4 py-2.5 pr-11 text-sm text-foreground bg-muted focus:outline-none focus:ring-2 focus:ring-ring/20"
+            />
+            <button type="button" onClick={() => setShow({ ...show, current: !show.current })} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              {show.current ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mật khẩu mới */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-muted-foreground">Mật khẩu mới</label>
+          <div className="relative">
+            <input
+              required
+              type={show.new ? 'text' : 'password'}
+              value={form.newPassword}
+              onChange={(e) => setForm({ ...form, newPassword: e.target.value })}
+              placeholder="Tối thiểu 6 ký tự"
+              className="w-full rounded-2xl border border-border px-4 py-2.5 pr-11 text-sm text-foreground bg-muted focus:outline-none focus:ring-2 focus:ring-ring/20"
+            />
+            <button type="button" onClick={() => setShow({ ...show, new: !show.new })} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              {show.new ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Xác nhận mật khẩu mới */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-muted-foreground">Xác nhận mật khẩu mới</label>
+          <div className="relative">
+            <input
+              required
+              type={show.confirm ? 'text' : 'password'}
+              value={form.confirmPassword}
+              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+              placeholder="Nhập lại mật khẩu mới"
+              className={`w-full rounded-2xl border px-4 py-2.5 pr-11 text-sm text-foreground bg-muted focus:outline-none focus:ring-2 focus:ring-ring/20 ${
+                notMatch ? 'border-red-500' : 'border-border'
+              }`}
+            />
+            <button type="button" onClick={() => setShow({ ...show, confirm: !show.confirm })} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              {show.confirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+          {notMatch && <p className="mt-1 text-xs text-red-500">Mật khẩu không khớp</p>}
+        </div>
       </div>
+
       <div className="flex justify-end">
         <button type="submit" disabled={saving || notMatch} className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
