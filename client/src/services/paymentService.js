@@ -5,6 +5,9 @@ const paymentService = {
   generate: (data) => api.post('/payments/generate', data),
   markAsPaid: (id, data) => api.put(`/payments/${id}/pay`, data),
   delete: (id) => api.delete(`/payments/${id}`),
+  // PayOS
+  createPaymentLink: (paymentId) => api.post(`/payos/create/${paymentId}`),
+  checkPayment: (orderCode) => api.get(`/payos/check/${orderCode}`),
 };
 
 export default paymentService;
