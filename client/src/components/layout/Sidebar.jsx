@@ -11,7 +11,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
 
   const menuItems = [
     { name: 'Home', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Cư dân', path: '/residents', icon: Users, roles: ['admin'] },
+    { name: 'Cư dân', path: '/residents', icon: Users, roles: ['admin', 'security'] },
     { name: 'Phương tiện', path: '/vehicles', icon: Car, roles: ['admin', 'security'] },
     { name: 'Bãi đỗ xe', path: '/parking-slots', icon: ParkingCircle, roles: ['admin', 'security'] },
     { name: 'Vào/Ra', path: '/parking-logs', icon: LogIn, roles: ['admin', 'security'] },
