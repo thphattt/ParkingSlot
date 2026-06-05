@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
-  withCredentials: true, // Gửi cookie (refresh token) theo mỗi request
+  baseURL: API_URL,
+  withCredentials: true,
 });
 
 // === Request Interceptor: Tự gắn token vào mỗi request ===
@@ -35,7 +37,7 @@ api.interceptors.response.use(
       try {
         // Gọi refresh token (cookie tự gửi theo)
         const { data } = await axios.post(
-          'http://localhost:5000/api/auth/refresh-token',
+          `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/refresh-token`,
           {},
           { withCredentials: true }
         );
