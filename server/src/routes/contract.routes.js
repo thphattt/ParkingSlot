@@ -10,10 +10,14 @@ const {
 const { protect, authorize } = require('../middlewares/auth.middleware');
 
 router.use(protect);
-router.use(authorize('admin'));
 
-router.route('/').get(getContracts).post(createContract);
-router.route('/:id').get(getContract).delete(deleteContract);
-router.put('/:id/cancel', cancelContract);
+// Xem danh sách: Admin + Bảo vệ
+router.get('/', authorize('admin', 'security'), getContracts);
+router.get('/:id', authorize('admin', 'security'), getContract);
+
+// Tạo / Hủy / Xóa: Chỉ Admin
+router.post('/', authorize('admin'), createContract);
+router.put('/:id/cancel', authorize('admin'), cancelContract);
+router.delete('/:id', authorize('admin'), deleteContract);
 
 module.exports = router;
