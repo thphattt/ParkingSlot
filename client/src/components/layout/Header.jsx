@@ -3,7 +3,7 @@ import useAuthStore from '../../stores/authStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ onMenuToggle }) => {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -20,15 +20,24 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur">
-      <div className="flex flex-1 items-center justify-between">
-        <h1 className="text-xl font-semibold text-foreground">ParkingSlot Dashboard</h1>
+      {/* Hamburger — chỉ hiện trên mobile */}
+      <button
+        onClick={onMenuToggle}
+        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground md:hidden"
+        aria-label="Toggle menu"
+      >
+        <PanelLeft className="h-5 w-5" />
+      </button>
 
-        <div className="flex items-center gap-3">
-          {/* Action buttons — rounded-2xl like template */}
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+      <div className="flex flex-1 items-center justify-between min-w-0">
+        <h1 className="truncate text-base font-semibold text-foreground sm:text-xl">ParkingSlot</h1>
+
+        <div className="flex shrink-0 items-center gap-1 sm:gap-3">
+          {/* Action buttons — ẩn bớớ trên mobile nhỏ */}
+          <button className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
             <Cloud className="h-5 w-5" />
           </button>
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+          <button className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
             <MessageSquare className="h-5 w-5" />
           </button>
 

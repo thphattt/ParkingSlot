@@ -1,13 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Car, ParkingCircle,
   FileText, CreditCard, LogIn, BarChart3,
-  Bell, Settings, Search, ChevronDown
+  Bell, Settings, Search, X
 } from 'lucide-react';
 import useAuthStore from '../../stores/authStore';
 
-const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
-  const { user } = useAuthStore();
+const Sidebar = ({ open, onClose }) => {
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
 
   const menuItems = [
     { name: 'Home', path: '/dashboard', icon: LayoutDashboard },
@@ -30,11 +31,17 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   };
 
+  const handleNav = (path) => {
+    navigate(path);
+    onClose?.(); // Đóng sidebar khi navigate trên mobile
+  };
+
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 transform border-r border-border bg-background transition-transform duration-300 ease-in-out md:block">
+    <aside className={`fixed inset-y-0 left-0 z-30 w-64 transform border-r border-border bg-background transition-transform duration-300 ease-in-out
+      ${open ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
       <div className="flex h-full flex-col">
-        {/* Logo */}
-        <div className="p-4">
+        {/* Logo + Close button */}
+        <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
             <div className="flex aspect-square h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 text-white">
               <ParkingCircle className="h-5 w-5" />
@@ -44,6 +51,13 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
               <p className="text-xs text-muted-foreground">Management System</p>
             </div>
           </div>
+          {/* Nút đóng - chỉ hiện trên mobile */}
+          <button
+            onClick={onClose}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
 
         {/* Search */}
@@ -65,6 +79,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={onClose}
                 className={({ isActive }) =>
                   `flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                     isActive
@@ -73,8 +88,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                   }`
                 }
               >
-                <item.icon className="h-5 w-5" />
-                <span>{item.name}</span>
+                <item.icon className="h-5 w-5 shrink-0" />
+                <span className="truncate">{item.name}</span>
               </NavLink>
             ))}
           </div>
@@ -85,6 +100,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <div className="space-y-1">
             <NavLink
               to="/settings"
+              onClick={onClose}
               className={({ isActive }) =>
                 `flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-sm font-medium transition-all ${
                   isActive
@@ -93,7 +109,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                 }`
               }
             >
-              <Settings className="h-5 w-5" />
+              <Settings className="h-5 w-5 shrink-0" />
               <span>Cài đặt</span>
             </NavLink>
 
