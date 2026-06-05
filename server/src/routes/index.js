@@ -11,6 +11,7 @@ const parkingLogRoutes = require('./parkingLog.routes');
 const paymentRoutes = require('./payment.routes');
 const payosRoutes = require('./payos.routes');
 const reportRoutes = require('./report.routes');
+const notificationRoutes = require('./notification.routes');
 
 router.use('/auth', authRoutes);
 router.use('/residents', residentRoutes);
@@ -22,5 +23,6 @@ router.use('/parking-logs', parkingLogRoutes);
 router.use('/payments', paymentRoutes);
 router.use('/payos', payosRoutes);
 router.use('/reports', reportRoutes);
+router.use('/notifications', notificationRoutes)
 
 module.exports = router;
