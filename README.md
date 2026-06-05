@@ -10,7 +10,7 @@
 [![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
-[🚀 Live Demo](https://parkingslot.vercel.app) · [🐛 Báo lỗi](https://github.com/thphattt/ParkingSlot/issues) · [💡 Đề xuất](https://github.com/thphattt/ParkingSlot/issues)
+[🚀 Live Demo](https://parking-slot-omega.vercel.app/login) · [🐛 Báo lỗi](https://github.com/thphattt/ParkingSlot/issues) · [💡 Đề xuất](https://github.com/thphattt/ParkingSlot/issues)
 
 </div>
 
