@@ -14,6 +14,7 @@ import ParkingLogsPage from './pages/parking-logs/ParkingLogsPage';
 import PaymentsPage from './pages/payments/PaymentsPage';
 import ReportsPage from './pages/reports/ReportsPage';
 import NotificationsPage from './pages/notifications/NotificationsPage';
+import SettingsPage from './pages/settings/SettingsPage';
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -46,6 +47,7 @@ function App() {
           <Route path='/payments' element={<PaymentsPage />} />
           <Route path='/reports' element={<ReportsPage />} />
           <Route path='/notifications' element={<NotificationsPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
           {/* Sẽ thêm các route khác ở đây */}
         </Route>
 
