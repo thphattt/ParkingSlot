@@ -44,18 +44,26 @@ exports.createNotification = async (req, res) => {
     });
 
     // Nếu có chọn người nhận cụ thể, tìm xem họ có Email không để gửi
+        // Gửi Email
     if (recipient) {
+      // Gửi 1 người
       const resident = await Resident.findById(recipient);
       if (resident && resident.email) {
         await sendEmail({
           email: resident.email,
           subject: title,
-          message: `
-            <h3>Xin chào ${resident.fullName},</h3>
-            <p>${content}</p>
-            <br/>
-            <i>Đây là email tự động từ Ban Quản Lý bãi đỗ xe. Vui lòng không trả lời.</i>
-          `,
+          message: `<h3>Xin chào ${resident.fullName},</h3><p>${content}</p>`,
+        });
+      }
+    } else {
+      // Gửi TẤT CẢ cư dân (có địa chỉ email)
+      const allResidents = await Resident.find({ status: 'active', email: { $exists: true, $ne: '' } });
+      for (const resident of allResidents) {
+        // Chạy ngầm gửi từng email để không làm chậm server
+        sendEmail({
+          email: resident.email,
+          subject: title,
+          message: `<h3>Xin chào ${resident.fullName},</h3><p>${content}</p>`,
         });
       }
     }

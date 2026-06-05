@@ -58,20 +58,24 @@ const ResidentFormModal = ({ isOpen, onClose, resident, onSuccess }) => {
     setSaving(true);
     setError("");
 
-    // Xóa field rỗng — tránh validation lỗi
-    const cleanData = {};
-    Object.entries(form).forEach(([key, value]) => {
-      if (value !== "" && value !== null && value !== undefined) {
-        cleanData[key] = value;
-      }
-    });
+    // Xử lý dữ liệu trước khi gửi
+    const submitData = { ...form };
+    
+    // Nếu email rỗng thì biến nó thành null để DB xóa đi và không bị lỗi định dạng
+    if (submitData.email === "") {
+      submitData.email = null;
+    }
+    // Nếu ghi chú rỗng cũng cho thành null
+    if (submitData.note === "") {
+      submitData.note = null;
+    }
 
     try {
       if (isEdit) {
-        await residentService.update(resident._id, cleanData);
+        await residentService.update(resident._id, submitData);
         toast.success("Cập nhật cư dân thành công!");
       } else {
-        await residentService.create(cleanData);
+        await residentService.create(submitData);
         toast.success("Thêm cư dân thành công!");
       }
       onSuccess();

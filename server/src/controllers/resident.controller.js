@@ -57,7 +57,7 @@ exports.createResident = async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       const field = Object.keys(error.keyPattern)[0];
-      const messages = { phone: 'Số điện thoại đã tồn tại', idCard: 'CCCD/CMND đã tồn tại' };
+      const messages = { phone: 'Số điện thoại đã tồn tại', idCard: 'CCCD/CMND đã tồn tại',  email: 'Email này đã được đăng ký cho cư dân khác', };
       return res.status(400).json({ success: false, message: messages[field] || `${field} đã tồn tại` });
     }
     if (error.name === 'ValidationError') {
@@ -83,7 +83,7 @@ exports.updateResident = async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       const field = Object.keys(error.keyPattern)[0];
-      const messages = { phone: 'Số điện thoại đã tồn tại', idCard: 'CCCD/CMND đã tồn tại' };
+      const messages = { phone: 'Số điện thoại đã tồn tại', idCard: 'CCCD/CMND đã tồn tại',  email: 'Email này đã được đăng ký cho cư dân khác',  };
       return res.status(400).json({ success: false, message: messages[field] || `${field} đã tồn tại` });
     }
     if (error.name === 'ValidationError') {

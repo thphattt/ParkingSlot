@@ -20,6 +20,8 @@ const residentSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       match: [/^\S+@\S+\.\S+$/, 'Email không hợp lệ'],
+      sparse: true, // Thêm dòng này để cho phép email rỗng/null
+      unique: true,
     },
     idCard: {
       type: String,
@@ -47,6 +49,7 @@ const residentSchema = new mongoose.Schema(
     note: {
       type: String,
       maxlength: [500, 'Ghi chú không quá 500 ký tự'],
+      sparse: true,
     },
   },
   {
