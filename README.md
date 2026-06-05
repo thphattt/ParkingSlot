@@ -4,13 +4,33 @@
 
 **Hệ thống quản lý bãi đỗ xe thông minh — Hiện đại, Bảo mật, Toàn diện**
 
+### 🖥️ Backend
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
 [![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
+[![Mongoose](https://img.shields.io/badge/Mongoose-8-880000?style=for-the-badge&logo=mongoose&logoColor=white)](https://mongoosejs.com)
+[![Socket.io](https://img.shields.io/badge/Socket.io-4-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io)
+[![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)](https://jwt.io)
+[![Nodemailer](https://img.shields.io/badge/Nodemailer-Email-22B573?style=for-the-badge&logo=gmail&logoColor=white)](https://nodemailer.com)
 
-[🚀 Live Demo](https://parking-slot-omega.vercel.app/login) · [🐛 Báo lỗi](https://github.com/thphattt/ParkingSlot/issues) · [💡 Đề xuất](https://github.com/thphattt/ParkingSlot/issues)
+### 🎨 Frontend
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![React Router](https://img.shields.io/badge/React_Router-6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)](https://reactrouter.com)
+[![Zustand](https://img.shields.io/badge/Zustand-State-433E38?style=for-the-badge&logo=react&logoColor=white)](https://zustand-demo.pmnd.rs)
+[![Axios](https://img.shields.io/badge/Axios-HTTP-5A29E4?style=for-the-badge&logo=axios&logoColor=white)](https://axios-http.com)
+[![Recharts](https://img.shields.io/badge/Recharts-Charts-22B5BF?style=for-the-badge&logo=chartdotjs&logoColor=white)](https://recharts.org)
+
+### ☁️ DevOps & Tools
+[![Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
+[![Render](https://img.shields.io/badge/Render-Backend-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES2024-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+---
+
+[🚀 Live Demo](https://parking-slot-deploy.vercel.app) · [🐛 Báo lỗi](https://github.com/thphattt/ParkingSlot/issues) · [💡 Đề xuất](https://github.com/thphattt/ParkingSlot/issues)
 
 </div>
 
